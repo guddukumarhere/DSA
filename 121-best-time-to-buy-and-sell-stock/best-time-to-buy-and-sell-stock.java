@@ -5,8 +5,12 @@ class Solution {
         int len=prices.length;
         for(int startFrom=1; startFrom<len;startFrom++){
             int cost=prices[startFrom]-min;
-            profit=Math.max(cost,profit);
-            min=Math.min(min,prices[startFrom]);
+            if(cost>profit){
+                profit=cost;
+            }
+            if(min>prices[startFrom]){
+                min=prices[startFrom];
+            }
         }
         return profit;
     }
