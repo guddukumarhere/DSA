@@ -10,45 +10,24 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode temp = list1;
-        int count1=0,count2=0;
-        
-        while(temp !=null){
-            count1++;
-            temp = temp.next;
-        }
-        temp=list2;
-        while(temp !=null){
-            count2++;
-            temp =temp.next;
-        }
-        int n=count1+count2;
-        int[] len=new int[n];
-
-        int i=0;
-        temp =list1;
-        while(temp !=null){
-            len[i++]=temp.val;
-            temp = temp.next;
-        }
-        temp = list2;
-        while (temp != null) {
-            len[i++] = temp.val;
-            temp = temp.next;
-        }
-
-        // Step 4: Sort array
-        Arrays.sort(len);
-
-        // Step 5: Build new LinkedList from array
-        ListNode dummy = new ListNode(-1);
+         ListNode dummy = new ListNode(-1);
         ListNode current = dummy;
-        for (int val : len) {
-            current.next = new ListNode(val);
+
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                current.next = list1;
+                list1 = list1.next;
+            } else {
+                current.next = list2;
+                list2 = list2.next;
+            }
             current = current.next;
         }
 
+        // Attach remaining nodes
+        if (list1 != null) current.next = list1;
+        if (list2 != null) current.next = list2;
+
         return dummy.next;
-        
     }
 }
